@@ -23,7 +23,6 @@ const Nav: React.FC = () => {
     }, 200);
   };
 
-  // Dodajemy tło nagłówka przy przewijaniu
   const handleScroll = () => {
     if (window.scrollY > 50) {
       setScrolled(true);
@@ -32,7 +31,6 @@ const Nav: React.FC = () => {
     }
   };
 
-  // Nasłuchiwanie na scroll
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

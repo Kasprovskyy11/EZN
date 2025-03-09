@@ -1,37 +1,35 @@
 import React, { useState, useEffect } from "react";
 
 const Weather: React.FC = () => {
-  const [location, setLocation] = useState(""); // Przechowuje miasto
-  const [weather, setWeather] = useState<any>(null); // Przechowuje dane pogodowe
-  const [loading, setLoading] = useState(false); // Przechowuje stan ładowania
-  const [error, setError] = useState(""); // Przechowuje ewentualny błąd
-  const [isVisible, setIsVisible] = useState(false); // Stan dla widoczności komponentu
+  const [location, setLocation] = useState("");
+  const [weather, setWeather] = useState<any>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [isVisible, setIsVisible] = useState(false);
 
-  // Funkcja do sprawdzenia, czy element jest w widocznej części ekranu
   const checkVisibility = () => {
     const element = document.getElementById("weather");
     if (element) {
       const rect = element.getBoundingClientRect();
-      // Sprawdzamy, czy element jest w obrębie widocznej części ekranu
+
       setIsVisible(rect.top <= window.innerHeight && rect.bottom >= 0);
     }
   };
 
   useEffect(() => {
     window.addEventListener("scroll", checkVisibility);
-    checkVisibility(); // Sprawdzamy widoczność przy załadowaniu strony
+    checkVisibility();
 
     return () => {
-      window.removeEventListener("scroll", checkVisibility); // Usuwamy nasłuchiwanie przy odmontowaniu komponentu
+      window.removeEventListener("scroll", checkVisibility);
     };
   }, []);
 
-  // Funkcja do pobrania pogody
   const fetchWeather = async () => {
     if (!location) return;
 
     setLoading(true);
-    setError(""); // Resetujemy błędy przed nowym zapytaniem
+    setError("");
 
     try {
       const geocodeResponse = await fetch(
@@ -53,11 +51,11 @@ const Weather: React.FC = () => {
       }
 
       const data = await response.json();
-      setWeather(data.hourly); // Ustawiamy dane o pogodzie
+      setWeather(data.hourly);
     } catch (err) {
       setError("Błąd podczas pobierania danych pogodowych.");
     }
-    setLoading(false); // Zakończ ładowanie
+    setLoading(false);
   };
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,7 +64,7 @@ const Weather: React.FC = () => {
 
   useEffect(() => {
     if (location) {
-      fetchWeather(); // Pobieramy pogodę po zmianie lokalizacji
+      fetchWeather();
     }
   }, [location]);
 

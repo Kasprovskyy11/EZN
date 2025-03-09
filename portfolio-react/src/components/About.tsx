@@ -2,10 +2,8 @@ import React, { useState, useEffect } from "react";
 import ProggramerIllustration from "../assets/ProgrammerIllustration.svg";
 
 const About: React.FC = () => {
-  // Stan do monitorowania, czy element jest widoczny
   const [isVisible, setIsVisible] = useState(false);
 
-  // Funkcja do sprawdzenia, czy element jest w widocznej części ekranu
   const checkVisibility = () => {
     const element = document.getElementById("aboutme");
     if (element) {
@@ -14,10 +12,9 @@ const About: React.FC = () => {
     }
   };
 
-  // Nasłuchiwanie na przewijanie strony
   useEffect(() => {
     window.addEventListener("scroll", checkVisibility);
-    checkVisibility(); // Sprawdzamy widoczność przy załadowaniu strony
+    checkVisibility();
 
     return () => {
       window.removeEventListener("scroll", checkVisibility);
