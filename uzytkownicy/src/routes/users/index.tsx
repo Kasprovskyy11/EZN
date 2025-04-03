@@ -20,7 +20,9 @@ function Index() {
             {users.map((user, index) => (
               <tr
                 key={user.id}
-                className={`border-b border-gray-300 ${index % 2 === 0 ? "bg-gray-100" : "bg-white"}`}
+                className={`border-b border-gray-300 ${
+                  index % 2 === 0 ? "bg-gray-100" : "bg-white"
+                }`}
               >
                 <td className="py-2 px-4">{user.name}</td>
                 <td className="py-2 px-4">

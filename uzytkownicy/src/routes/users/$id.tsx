@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import users from "../../users.json";
 
 export const Route = createFileRoute("/users/$id")({
@@ -46,11 +46,23 @@ function RouteComponent() {
               >
                 <td className="uppercase font-bold px-4 py-2">{prop}</td>
                 <td className=" px-4 py-2">
-                  {prop === "city"
-                    ? user?.address.city
-                    : prop === "company"
-                      ? user.company.name
-                      : user[prop]}
+                  {prop === "city" ? (
+                    <Link
+                      to={`/users/details?typeOfProp=address&user_id=${user.id}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {user.address.city}
+                    </Link>
+                  ) : prop === "company" ? (
+                    <Link
+                      to={`/users/details?typeOfProp=company&user_id=${user.id}`}
+                      className="text-blue-600 hover:underline"
+                    >
+                      {user.company.name}
+                    </Link>
+                  ) : (
+                    user[prop]
+                  )}
                 </td>
               </tr>
             ))}
